@@ -160,6 +160,9 @@
                     bentCount++; // Increment the bent count
                     var audio = new Audio('bent.mp3');
                     audio.play();
+
+                    // Start tracking the time spent in the incorrect squat posture
+                    lastIncorrectSquatTimestamp = new Date();
                 }
                 status = "bent";
             } else {
