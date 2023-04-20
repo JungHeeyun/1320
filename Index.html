@@ -18,22 +18,25 @@
         <button class="btn btn-primary"type="button" onclick="init()">Start</button>
         <button class="btn btn-danger" type="button" onclick="stop()">Stop</button>
         <div class="frame">
-          <div class="center">
-            <div class="headline">
-              <div class="small">Squat</div>Counter
+            <div class="center">
+                <div class="headline">
+                    <div class="small">Squat</div>Counter
+                </div>
+                <div class="circle-big">
+                    <div class="text">
+                        <span id="counter">0</span><div class="small"></div>
+                    </div>
+                    <svg>
+                        <circle class="bg" cx="57" cy="57" r="52" />
+                        <circle class="progress" cx="57" cy="57" r="52" />
+                    </svg>
+                </div>
             </div>
-            <div class="circle-big">
-              <div class="text">
-                <span id="counter">0</span><div class="small"></div>
-              </div>
-              <svg>
-                <circle class="bg" cx="57" cy="57" r="52" />
-                <circle class="progress" cx="57" cy="57" r="52" />
-              </svg>
-            </div>
-          </div>
-          <div id="results-container"></div> <!-- move here -->
+            <div id="results-container"></div> <!-- move here -->
         </div>
+        <div><canvas id="canvas"></canvas></div>
+        <div id="label-container"></div>
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
