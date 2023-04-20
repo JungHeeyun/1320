@@ -121,7 +121,15 @@
             }
             endTime = new Date(); // Store the end time when the workout is stopped
             displayResults(); // Call the displayResults function here
+
+            // Hide the elements you want to disappear
+            document.querySelector(".frame").style.display = "none";
+            document.getElementById("canvas").style.display = "none";
+            document.getElementById("label-container").style.display = "none";
+            document.querySelector("button.btn.btn-primary").style.display = "none";
+            document.querySelector("button.btn.btn-danger").style.display = "none";
         }
+
 
         async function loop(timestamp) {
             if (!isRunning) {
