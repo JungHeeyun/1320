@@ -14,28 +14,29 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Fitbot AI Trainer</h1>
-        <button class="btn btn-primary"type="button" onclick="init()">Start</button>
-        <button class="btn btn-danger" type="button" onclick="stop()">Stop</button>
-        <div class="frame">
-            <div class="center">
-                <div class="headline">
-                    <div class="small">Squat</div>Counter
-                </div>
-                <div class="circle-big">
-                    <div class="text">
-                        <span id="counter">0</span><div class="small"></div>
-                    </div>
-                    <svg>
-                        <circle class="bg" cx="57" cy="57" r="52" />
-                        <circle class="progress" cx="57" cy="57" r="52" />
-                    </svg>
-                </div>
+      <h1>Fitbot AI Trainer</h1>
+      <button class="btn btn-primary" type="button" onclick="init()">Start</button>
+      <button class="btn btn-danger" type="button" onclick="stop()">Stop</button>
+      <div class="frame hide">
+        <div class="center">
+          <div class="headline">
+            <div class="small">Squat</div>Counter
+          </div>
+          <div class="circle-big">
+            <div class="text">
+              <span id="counter">0</span>
+              <div class="small"></div>
             </div>
-            <div id="results-container"></div> <!-- move here -->
+            <svg>
+              <circle class="bg" cx="57" cy="57" r="52" />
+              <circle class="progress" cx="57" cy="57" r="52" />
+            </svg>
+          </div>
         </div>
-        <div><canvas id="canvas"></canvas></div>
-        <div id="label-container"></div>
+        <div id="results-container"></div>
+      </div>
+      <div><canvas id="canvas"></canvas></div>
+      <div id="label-container"></div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -111,13 +112,15 @@
             `;
         }
         
-        async function stop() {
-            isRunning = false;
-            if (webcam) {
-                webcam.stop();
-            }
-            endTime = new Date(); // Store the end time when the workout is stopped
-            displayResults(); // Call the displayResults function here
+        function stop() {
+          isRunning = false;
+          if (webcam) {
+            webcam.stop();
+          }
+          endTime = new Date();
+          displayResults();
+          document.getElementById("results-container").classList.remove("hide");
+          document.querySelector(".frame").classList.add("hide");
         }
 
         async function loop(timestamp) {
