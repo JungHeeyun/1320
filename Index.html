@@ -36,6 +36,7 @@
         <div><canvas id="canvas"></canvas></div>
         <div id="label-container"></div>
     </div>
+    <div id="results-container"></div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -56,6 +57,9 @@
         // the link to your model provided by Teachable Machine export panel
         const URL = "./my_model/";
         let model, webcam, ctx, labelContainer, maxPredictions;
+        let startTime, endTime; // To track the workout duration
+        let bentCount = 0; // To track the number of times the user was in a bent position
+
 
         async function init() {
             const modelURL = URL + "model.json";
@@ -83,6 +87,7 @@
             for (let i = 0; i < maxPredictions; i++) { // and class labels
                 labelContainer.appendChild(document.createElement("div"));
             }
+          startTime = new Date(); // Store the start time when the workout begins
         }
 
         async function loop(timestamp) {
@@ -95,12 +100,26 @@
         var count = 0
         let isRunning = true;
 
+        function displayResults() {
+            const resultsContainer = document.getElementById("results-container");
+            const workoutDuration = (endTime - startTime) / 1000; // Calculate the workout duration in seconds
+            resultsContainer.innerHTML = `
+                <h3>Workout Summary</h3>
+                <p>Duration: ${workoutDuration.toFixed(2)} seconds</p>
+                <p>Squats: ${count}</p>
+                <p>Bent: ${bentCount}</p>
+            `;
+        }
+        
         async function stop() {
             isRunning = false;
             if (webcam) {
                 webcam.stop();
             }
+            endTime = new Date(); // Store the end time when the workout is stopped
+            displayResults(); // Call the displayResults function here
         }
+
         async function loop(timestamp) {
             if (!isRunning) {
                 return;
@@ -132,11 +151,13 @@
                 status = "squat"
             } else if (prediction[2].probability.toFixed(2) == 1.00) {
                 if (status == "squat" || status == "stand") {
+                    bentCount++; // Increment the bent count
                     var audio = new Audio('bent.mp3');
                     audio.play();
                 }
-                status = "bent"
+                status = "bent";
             }
+
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
                     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
