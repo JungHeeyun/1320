@@ -85,6 +85,10 @@ body {
     font-weight: 400;
 }
 
+.hide {
+  display: none;
+}
+
 h1 {
     font-size: 40px;
     font-weight: 600;
