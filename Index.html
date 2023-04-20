@@ -84,10 +84,11 @@
             canvas.width = size; canvas.height = size;
             ctx = canvas.getContext("2d");
             labelContainer = document.getElementById("label-container");
+            labelContainer.classList.add("hidden"); // Add the 'hidden' class
             for (let i = 0; i < maxPredictions; i++) { // and class labels
                 labelContainer.appendChild(document.createElement("div"));
             }
-          startTime = new Date(); // Store the start time when the workout begins
+            startTime = new Date(); // Store the start time when the workout begins
         }
 
         async function loop(timestamp) {
@@ -109,7 +110,9 @@
                 <p>Squats: ${count}</p>
                 <p>Bent: ${bentCount}</p>
             `;
+            labelContainer.classList.remove("hidden"); // Remove the 'hidden' class to show the label container
         }
+
         
         async function stop() {
             isRunning = false;
