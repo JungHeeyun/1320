@@ -108,7 +108,7 @@
             const resultsContainer = document.getElementById("results-container");
             const workoutDuration = (endTime - startTime) / 1000; // Calculate the workout duration in seconds
             const squatConsistency = count ? (count - bentCount) / count * 100 : 0; // Calculate squat consistency
-            const incorrectSquatPercentage = count ? (bentCount / count) * 100 : 0; // Calculate incorrect squat percentage
+            
             resultsContainer.innerHTML = `
                 <h3>Workout Summary</h3>
                 <p>Duration: ${workoutDuration.toFixed(2)} seconds</p>
@@ -116,7 +116,6 @@
                 <p>Bent: ${bentCount}</p>
                 <p>Squat Consistency: ${squatConsistency.toFixed(2)}%</p>
                 <p>Incorrect Squat Percentage: ${incorrectSquatPercentage.toFixed(2)}%</p>
-                <p>Time spent in Incorrect Posture: ${incorrectSquatDuration.toFixed(2)} seconds</p>
             `;
         }
 
