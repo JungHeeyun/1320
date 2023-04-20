@@ -62,7 +62,8 @@
         let model, webcam, ctx, labelContainer, maxPredictions;
         let startTime, endTime; // To track the workout duration
         let bentCount = 0; // To track the number of times the user was in a bent position
-
+        let incorrectSquatDuration = 0; // To track the time spent in the incorrect squat posture
+        let lastIncorrectSquatTimestamp = null; // To track the last timestamp when an incorrect squat was detected
 
         async function init() {
             const modelURL = URL + "model.json";
@@ -106,13 +107,19 @@
         function displayResults() {
             const resultsContainer = document.getElementById("results-container");
             const workoutDuration = (endTime - startTime) / 1000; // Calculate the workout duration in seconds
+            const squatConsistency = count ? (count - bentCount) / count * 100 : 0; // Calculate squat consistency
+            const incorrectSquatPercentage = count ? (bentCount / count) * 100 : 0; // Calculate incorrect squat percentage
             resultsContainer.innerHTML = `
                 <h3>Workout Summary</h3>
                 <p>Duration: ${workoutDuration.toFixed(2)} seconds</p>
                 <p>Squats: ${count}</p>
                 <p>Bent: ${bentCount}</p>
+                <p>Squat Consistency: ${squatConsistency.toFixed(2)}%</p>
+                <p>Incorrect Squat Percentage: ${incorrectSquatPercentage.toFixed(2)}%</p>
+                <p>Time spent in Incorrect Posture: ${incorrectSquatDuration.toFixed(2)} seconds</p>
             `;
         }
+
         
         async function stop() {
             isRunning = false;
@@ -157,8 +164,17 @@
                     bentCount++; // Increment the bent count
                     var audio = new Audio('bent.mp3');
                     audio.play();
+
+                    // Start tracking the time spent in the incorrect squat posture
+                    lastIncorrectSquatTimestamp = new Date();
                 }
                 status = "bent";
+            } else {
+                // Calculate the time spent in the incorrect squat posture
+                if (lastIncorrectSquatTimestamp !== null) {
+                    incorrectSquatDuration += (new Date() - lastIncorrectSquatTimestamp) / 1000;
+                    lastIncorrectSquatTimestamp = null;
+                }
             }
 
             for (let i = 0; i < maxPredictions; i++) {
