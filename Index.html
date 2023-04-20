@@ -62,6 +62,9 @@
         let model, webcam, ctx, labelContainer, maxPredictions;
         let startTime, endTime; // To track the workout duration
         let bentCount = 0; // To track the number of times the user was in a bent position
+        let incorrectSquatDuration = 0; // To track the time spent in the incorrect squat posture
+        let lastIncorrectSquatTimestamp = null; // To track the last timestamp when an incorrect squat was detected
+
         
         async function init() {
             const modelURL = URL + "model.json";
