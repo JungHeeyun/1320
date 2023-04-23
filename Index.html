@@ -35,6 +35,7 @@
                         <div class="text">
                             <span id="counter">0</span><div class="small"></div>
                         </div>
+                        <button id="copy-button" class="btn btn-secondary">Copy Results</button>
                         <svg>
                             <circle class="bg" cx="57" cy="57" r="52" />
                             <circle class="progress" cx="57" cy="57" r="52" />
@@ -140,7 +141,32 @@
             `;
         }
 
+        function copyResults() {
+            const workoutDuration = (endTime - startTime) / 1000; // Calculate the workout duration in seconds
+            const squatConsistency = count ? (count - bentCount) / count * 100 : 0; // Calculate squat consistency
+            const incorrectSquatPercentage = count ? (bentCount / count) * 100 : 0; // Calculate incorrect squat percentage
 
+            const resultValues = [
+                Math.round(workoutDuration),
+                count,
+                bentCount,
+                Math.round(squatConsistency),
+                Math.round(incorrectSquatPercentage),
+            ];
+
+            const resultString = resultValues.join(", ");
+
+            navigator.clipboard.writeText(resultString).then(
+                function () {
+                    alert("Results copied to clipboard.");
+                },
+                function (err) {
+                    alert("Error: Unable to copy results to clipboard.");
+                }
+            );
+        }
+
+        document.getElementById("copy-button").addEventListener("click", copyResults);
 
         async function stop() {
             isRunning = false;
