@@ -165,8 +165,17 @@
                 }
             );
         }
+        document.getElementById("copy-button").addEventListener("click", function () {
+            const resultsContainer = document.getElementById("results-container");
+            const textarea = document.createElement("textarea");
+            textarea.value = resultsContainer.innerText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("Results copied to clipboard!");
+        });
 
-        document.getElementById("copy-button").addEventListener("click", copyResults);
 
         async function stop() {
             isRunning = false;
