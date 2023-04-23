@@ -15,10 +15,16 @@
 <body>
     <div class="container mt-5">
         <h1>Fitbot AI Trainer</h1>
+        <div class="exercise-options">
+            <button class="btn btn-primary" type="button" onclick="chooseExercise('pushup')">Push-up</button>
+            <button class="btn btn-primary" type="button" onclick="chooseExercise('pullup')">Pull-up</button>
+            <button class="btn btn-primary" type="button" onclick="chooseExercise('squat')">Squat</button>
+            <p>(Note: More exercises will be added in future updates.)</p>
+        </div>
         <button class="btn btn-primary"type="button" onclick="init()">Start</button>
         <button class="btn btn-danger" type="button" onclick="stop()">Stop</button>
         <div class="squat-results-container">
-            <div class="frame">
+             <div class="frame">
                 <div class="center">
                     <div class="headline">
                         <div class="small">Squat</div>Counter
